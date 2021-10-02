@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace DTerrain
 {
@@ -11,18 +12,31 @@ namespace DTerrain
         [SerializeField]
         private GameObject ball = null;
 
+        private bool pressed;
+        private TimeSpan sinceLastSpawn = TimeSpan.Zero;
+
         void Update()
         {
-            CreateBall();
-        }
+            if (Input.GetKeyUp(KeyCode.B))
+            {
+                pressed = false;
+            }
 
-        public void CreateBall()
-        {
             if (Input.GetKeyDown(KeyCode.B))
             {
-                Vector3 mPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                mPos.z = 0;
-                Instantiate(ball, mPos, new Quaternion(0, 0, 0, 0));
+                pressed = transform;
+            }
+
+            if (pressed)
+            {
+                sinceLastSpawn += TimeSpan.FromSeconds(Time.deltaTime);
+                if (sinceLastSpawn > TimeSpan.FromMilliseconds(50))
+                {
+                    Vector3 mPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    mPos.z = 0;
+                    Instantiate(ball, mPos, new Quaternion(0, 0, 0, 0));
+                    sinceLastSpawn = TimeSpan.Zero;
+                }
             }
         }
     }
