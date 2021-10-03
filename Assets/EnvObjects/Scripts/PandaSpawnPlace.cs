@@ -10,6 +10,7 @@ public class PandaSpawnPlace : MonoBehaviour
 
     private float time = 0.0f;
     private BoxCollider2D rb;
+    private int currentCount = 0;
 
     void Start()
     {
@@ -21,13 +22,16 @@ public class PandaSpawnPlace : MonoBehaviour
     {
         time += Time.deltaTime;
 
-        if (time >= spawnPeriod)
+        if (time >= spawnPeriod && currentCount <= pandaCount)
         {
             time = 0.0f;
             Vector2 v = rb.transform.position;
             v.x += 1;
             Instantiate(pandaPrefab, v, Quaternion.identity);
+            currentCount++;
         }
         
     }
+
+    
 }
