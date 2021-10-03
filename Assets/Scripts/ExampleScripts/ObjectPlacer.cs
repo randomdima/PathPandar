@@ -19,7 +19,7 @@ namespace DTerrain
 
         public override bool Place()
         {
-            Instantiate(Object, transform.position, Quaternion.identity);
+            Instantiate(Object, transform.position, Quaternion.identity, GameObject.Find("BlockController").transform);
             return true;
         }
     }

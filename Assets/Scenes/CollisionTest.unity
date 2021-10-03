@@ -447,7 +447,7 @@ Transform:
   m_GameObject: {fileID: 1842062704}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.14, y: 3.14, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -469,5 +469,6 @@ MonoBehaviour:
   - {fileID: 6356650488622093243, guid: 90784936121dc1b49a743a2f4e44ae86, type: 3}
   - {fileID: 6356650488622093243, guid: e3a680530a6ec3b4ea8f9ba86bbfd93d, type: 3}
   - {fileID: 6356650488622093243, guid: b8d0b1f0fef899c4d8048fb30551b5af, type: 3}
+  - {fileID: 6356650488622093243, guid: f03760d1de158444690d28fb4fae22b0, type: 3}
   CollisionLayer: {fileID: 1775323881}
   VisibleLayer: {fileID: 44864348}

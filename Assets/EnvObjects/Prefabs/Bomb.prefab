@@ -123,8 +123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c020d1878769fbb428c92ac452908d34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  circleSize: 200
-  outlineSize: 4
+  <Texture>k__BackingField: {fileID: 2800000, guid: d2c7399c92ece3b4c9089cc170edba18,
+    type: 3}
 --- !u!50 &-3647968136823144445
 Rigidbody2D:
   serializedVersion: 4
