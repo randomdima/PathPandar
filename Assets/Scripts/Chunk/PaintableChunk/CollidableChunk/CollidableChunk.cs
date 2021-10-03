@@ -12,7 +12,7 @@ namespace DTerrain
     /// </summary>
     public class CollidableChunk : PaintableChunk
     {
-        public float AlphaTreshold { get; set; } = 0.01f;
+        public float AlphaTreshold { get; set; } = 0f;
         protected List<Column> columns;
         protected IChunkCollider chunkCollider;
         protected bool colliderChanged = true;
@@ -24,9 +24,9 @@ namespace DTerrain
             PrepareColumns();
         }
 
-        public override bool Paint(RectInt r, PaintingParameters pp, int column)
+        public override bool Paint(RectInt r, PaintingParameters pp, int column, int columnMin)
         {
-            bool b = base.Paint(r, pp, column);
+            bool b = base.Paint(r, pp, column, columnMin);
 
             if(pp.DestructionMode==DestructionMode.DESTROY)
                 DeleteFromColumns(r);

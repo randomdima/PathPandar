@@ -7,11 +7,13 @@ namespace DTerrain
     {
         public List<Column> Columns;
         public Texture2D Texture;
-        public float AlphaTreshold { get; set; } = 0.01f;
+        public Color32[] Pixels;
+        public float AlphaTreshold { get; set; } = 0f;
 
         public ComplexShape(Texture2D texture)
         {
             Texture = texture;
+            Pixels = texture.GetPixels32();
             PrepareColumns();
         }
         
@@ -28,7 +30,7 @@ namespace DTerrain
                 {
                     int potentialMin = y;
                     int potentialMax = y - 1;
-                    while (y < Texture.height && Texture.GetPixel(x, y).a > AlphaTreshold)
+                    while (y < Texture.height && Pixels[x+ y*Texture.width].a > AlphaTreshold)
                     {
                         y++;
                         potentialMax++;

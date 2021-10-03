@@ -158,7 +158,7 @@ MonoBehaviour:
     type: 3}
   <OriginalTexture>k__BackingField: {fileID: 2800000, guid: d435b21b64d906343a226a82bfc96018,
     type: 3}
-  <PPU>k__BackingField: 32
+  <PPU>k__BackingField: 100
   filterMode: 0
   <SortingLayerID>k__BackingField: 0
 --- !u!4 &44864349
@@ -324,11 +324,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Objects>k__BackingField:
-  - {fileID: 6356650488622093243, guid: 917a51fe8749db449b1b0db48ebcfc3a, type: 3}
-  - {fileID: 6356650488622093243, guid: 90784936121dc1b49a743a2f4e44ae86, type: 3}
-  - {fileID: 6356650488622093243, guid: e3a680530a6ec3b4ea8f9ba86bbfd93d, type: 3}
-  - {fileID: 6356650488622093243, guid: b8d0b1f0fef899c4d8048fb30551b5af, type: 3}
+  - {fileID: 6356650488622093243, guid: f89108e063015e0478ed79bb7a602cef, type: 3}
+  - {fileID: 6356650488622093243, guid: 2eae5e08c3a2ec446b2f717258de1274, type: 3}
+  - {fileID: 6356650488622093243, guid: 422b437e1702fb04daee0909c5f542cc, type: 3}
   - {fileID: 6356650488622093243, guid: f03760d1de158444690d28fb4fae22b0, type: 3}
+  - {fileID: 6356650488622093243, guid: b8d0b1f0fef899c4d8048fb30551b5af, type: 3}
+  - {fileID: 6356650488622093243, guid: e3a680530a6ec3b4ea8f9ba86bbfd93d, type: 3}
   CollisionLayer: {fileID: 1775323881}
   VisibleLayer: {fileID: 44864348}
 --- !u!114 &1030653241
@@ -462,13 +463,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4af001885c4fabf44bb122b3b693310e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ChunkCountX>k__BackingField: 16
-  <ChunkCountY>k__BackingField: 16
+  <ChunkCountX>k__BackingField: 1
+  <ChunkCountY>k__BackingField: 1
   chunkTemplate: {fileID: 5194434684234072523, guid: 847a2e425730df3409385592b669f10a,
     type: 3}
   <OriginalTexture>k__BackingField: {fileID: 2800000, guid: 3a4059cd84d9a014db858e1b7ce9f6eb,
     type: 3}
-  <PPU>k__BackingField: 32
+  <PPU>k__BackingField: 100
   filterMode: 0
   <SortingLayerID>k__BackingField: 0
 --- !u!1001 &1859537018

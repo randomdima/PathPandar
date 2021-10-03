@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace DTerrain
@@ -19,13 +20,19 @@ namespace DTerrain
         public virtual void Init()
         {
             SpriteRenderer = GetComponent<SpriteRenderer>();
-            SpriteRenderer.sprite = Sprite.Create(TextureSource.Texture, new Rect(0, 0, TextureSource.Texture.width, TextureSource.Texture.height), new Vector2(0.0f, 0.0f), TextureSource.PPU,0,SpriteMeshType.FullRect);
+            SpriteRenderer.sprite = Sprite.Create(
+                TextureSource.Texture, 
+                new Rect(0, 0, TextureSource.Texture.width, TextureSource.Texture.height), 
+                new Vector2(0.0f, 0.0f), 
+                TextureSource.PPU,
+                0,
+                SpriteMeshType.FullRect);
             TextureSource.SetUpToRenderer(SpriteRenderer);
 
             SpriteRenderer.sortingLayerID = SortingLayerID;
         }
 
-        public virtual bool Paint(RectInt r, PaintingParameters pp, int column)
+        public virtual bool Paint(RectInt r, PaintingParameters pp, int column, int columnMin)
         {
             if (pp.PaintingMode == PaintingMode.NONE) return false;
 
@@ -38,12 +45,28 @@ namespace DTerrain
 
             if (len == 0) return false;
 
-            Color[] cs = new Color[len];
+            Color32[] cs = new Color32[len];
 
             //...using paiting method
             if (pp.PaintingMode == PaintingMode.REPLACE_COLOR)
                 for (int i = 0; i < len; i++)
-                    cs[i] = pp.Shape.Texture.GetPixel(column + i/common.height - (r.x-common.x), i%common.height - (r.y-common.y));
+                {
+                    var px = column;
+                    var py = i+columnMin;
+                    var ss = py * pp.Shape.Texture.width + px;
+                    
+                    var color = pp.Shape.Pixels[ss];
+                    var currentColor = TextureSource.Texture.GetPixel(common.x, common.y + i);
+                    if (currentColor.a == 0)
+                    {
+                        cs[i] = color;
+                    }
+                    else
+                    {
+                        cs[i] = Color32.Lerp(currentColor, color, color.a / 255f);
+                        cs[i].a = 255;
+                    }
+                }
             else if (pp.PaintingMode == PaintingMode.REMOVE_COLOR)
                 for (int i = 0; i < len; i++)
                     cs[i] = Color.clear;
@@ -59,7 +82,7 @@ namespace DTerrain
             }
 
             //Apply color
-            TextureSource.Texture.SetPixels(common.x, common.y, common.width, common.height, cs);
+            TextureSource.Texture.SetPixels32(common.x, common.y, common.width, common.height, cs);
 
             //Set up this chunk as ready to be updated on next Update()
             painted = true;
