@@ -44,6 +44,11 @@ public class PandaController : MonoBehaviour
 	public float offsetSide = 0.5f;
 	public float rayColisionDistance = 0.3f;
 
+	public void MakeAngry()
+	{
+		mode = PandaMode.Angry;
+	}
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -124,9 +129,9 @@ public class PandaController : MonoBehaviour
 		RaycastHit2D raycastHit2d_bottom = Physics2D.Raycast(position + direction*offsetSide - Vector2.up*offsetBottom, direction);
 
 		return
-			(raycastHit2d_top.transform != null && raycastHit2d_top.distance < rayColisionDistance)
+			(raycastHit2d_top.transform != null && raycastHit2d_top.distance < rayColisionDistance && !raycastHit2d_top.collider.isTrigger)
 			||
-			(raycastHit2d_bottom.transform != null && raycastHit2d_bottom.distance < rayColisionDistance);
+			(raycastHit2d_bottom.transform != null && raycastHit2d_bottom.distance < rayColisionDistance && !raycastHit2d_bottom.collider.isTrigger);
 	}
 
 	private bool ObstructedRight()
@@ -146,6 +151,7 @@ public class PandaController : MonoBehaviour
 			||
 			Physics2D.OverlapCircle(bottomLeftCheck.position, radius, m_whatIsGround);
 	}
+
 
 	private void SetAnimatorActivitiAndMode()
 	{
