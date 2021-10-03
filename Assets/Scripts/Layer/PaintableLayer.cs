@@ -109,12 +109,11 @@ namespace DTerrain
 
         public void Paint(PaintingParameters paintingParameters)
         {
-            int k = 0;
-            foreach (Range r in paintingParameters.Shape.Ranges)
-            {
-                PaintColumn(paintingParameters.Position.x + k, paintingParameters.Position.y+r.Min, r, paintingParameters);
-                k++;
-            }
+            foreach (Column c in paintingParameters.Shape.Columns)
+                foreach (Range r in c.Ranges)
+                {
+                    PaintColumn(paintingParameters.Position.x + c.X, paintingParameters.Position.y+r.Min, r, paintingParameters, c.X);
+                }
         }
 
         /// <summary>
@@ -124,7 +123,7 @@ namespace DTerrain
         /// <param name="y">Global position Y</param>
         /// <param name="r">Range from a shape</param>
         /// <param name="c">Color to be painted</param>
-        private void PaintColumn(int x, int y, Range r, PaintingParameters pp)
+        private void PaintColumn(int x, int y, Range r, PaintingParameters pp, int column)
         {
             
             int height = r.Length;
@@ -142,7 +141,7 @@ namespace DTerrain
                 
                 if (cid >= 0 && cid < Chunks.Count && k + ychunk < ChunkCountY && (k - 1) * chunkSizeY <= height)
                 {
-                    Chunks[cid].Paint(new RectInt(posInChunkX, posInChunkY - k * chunkSizeY, 1, r.Length+1), pp);
+                    Chunks[cid].Paint(new RectInt(posInChunkX, posInChunkY - k * chunkSizeY, 1, r.Length+1), pp, column);
                     cid++;
                     k++;
                 }

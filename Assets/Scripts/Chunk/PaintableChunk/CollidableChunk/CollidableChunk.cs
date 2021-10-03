@@ -24,9 +24,9 @@ namespace DTerrain
             PrepareColumns();
         }
 
-        public override bool Paint(RectInt r, PaintingParameters pp)
+        public override bool Paint(RectInt r, PaintingParameters pp, int column)
         {
-            bool b = base.Paint(r, pp);
+            bool b = base.Paint(r, pp, column);
 
             if(pp.DestructionMode==DestructionMode.DESTROY)
                 DeleteFromColumns(r);
