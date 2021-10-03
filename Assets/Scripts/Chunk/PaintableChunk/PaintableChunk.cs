@@ -25,7 +25,7 @@ namespace DTerrain
             SpriteRenderer.sortingLayerID = SortingLayerID;
         }
 
-        public virtual bool Paint(RectInt r, PaintingParameters pp)
+        public virtual bool Paint(RectInt r, PaintingParameters pp, int column)
         {
             if (pp.PaintingMode == PaintingMode.NONE) return false;
 
@@ -43,16 +43,19 @@ namespace DTerrain
             //...using paiting method
             if (pp.PaintingMode == PaintingMode.REPLACE_COLOR)
                 for (int i = 0; i < len; i++)
-                    cs[i] = pp.Color;
+                    cs[i] = pp.Shape.Texture.GetPixel(column + i/common.height - (r.x-common.x), i%common.height - (r.y-common.y));
+            else if (pp.PaintingMode == PaintingMode.REMOVE_COLOR)
+                for (int i = 0; i < len; i++)
+                    cs[i] = Color.clear;
             else if (pp.PaintingMode == PaintingMode.ADD_COLOR)
             {
-                for (int i = 0; i < common.width; i++)
-                {
-                    for (int j = 0; j < common.height; j++)
-                    {
-                        cs[i*common.height + j] = TextureSource.Texture.GetPixel(common.x + i, common.y + j) + pp.Color;
-                    }
-                }
+                // for (int i = 0; i < common.width; i++)
+                // {
+                //     for (int j = 0; j < common.height; j++)
+                //     {
+                //         cs[i*common.height + j] = TextureSource.Texture.GetPixel(common.x + i, common.y + j) + pp.Color;
+                //     }
+                // }
             }
 
             //Apply color
