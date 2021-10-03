@@ -7,6 +7,7 @@ public class FakePandaBehavior : MonoBehaviour
 
     public int speed = 1;
     private Rigidbody2D rb;
+    private bool isHandled = false;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -24,4 +25,12 @@ public class FakePandaBehavior : MonoBehaviour
         float moveBy = x * speed;
         rb.velocity = new Vector2(moveBy, rb.velocity.y);
     }
+
+    public void SetHandled()
+    {
+        isHandled = true;
+        Object.Destroy(gameObject);
+    }
+
+    public bool Handled => isHandled;
 }
