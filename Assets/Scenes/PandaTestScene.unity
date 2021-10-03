@@ -154,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ChunkCountX>k__BackingField: 1
   <ChunkCountY>k__BackingField: 1
-  chunkTemplate: {fileID: 5194434684234072523, guid: d131098cbcac0e44aa81693a2bba460a,
+  chunkTemplate: {fileID: 5194434684234072523, guid: 37c73454f27eef44b862eb12bd4ee2a3,
     type: 3}
   <OriginalTexture>k__BackingField: {fileID: 2800000, guid: d435b21b64d906343a226a82bfc96018,
     type: 3}
