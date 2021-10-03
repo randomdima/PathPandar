@@ -56,16 +56,18 @@ namespace DTerrain
                     var ss = py * pp.Shape.Texture.width + px;
                     
                     var color = pp.Shape.Pixels[ss];
-                    var currentColor = TextureSource.Texture.GetPixel(common.x, common.y + i);
-                    if (currentColor.a == 0)
-                    {
-                        cs[i] = color;
-                    }
-                    else
-                    {
-                        cs[i] = Color32.Lerp(currentColor, color, color.a / 255f);
-                        cs[i].a = 255;
-                    }
+                    cs[i] = color;//Color32.Lerp(currentColor, color, color.a / 255f);
+                    cs[i].a = 255;
+                   // var currentColor = TextureSource.Texture.GetPixel(common.x, common.y - i);
+                    // if (currentColor.a == 0)
+                    // {
+                    //     cs[i] = color;
+                    // }
+                    // else
+                    // {
+                    //     cs[i] = color;//Color32.Lerp(currentColor, color, color.a / 255f);
+                    //     cs[i].a = 255;
+                    // }
                 }
             else if (pp.PaintingMode == PaintingMode.REMOVE_COLOR)
                 for (int i = 0; i < len; i++)
