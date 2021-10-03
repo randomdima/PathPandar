@@ -21,10 +21,10 @@ public class FinishPlace : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         //Output the Collider's GameObject's name
-        FakePandaBehavior p = collision.gameObject.GetComponent<FakePandaBehavior>();
-        if (p != null && !p.Handled)
+        PandaController p = collision.gameObject.GetComponent<PandaController>();
+        if (p != null)
         {
-            p.SetHandled();
+            Object.Destroy(p.gameObject);
             UILogic.Bus.Publish<CountPandaEvent>(new CountPandaEvent());
         } else if(p == null)
         {

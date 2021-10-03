@@ -35,7 +35,7 @@ public class Bomb : MonoBehaviour
 
     private IEnumerator DestroyTerrain()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(2f);
         Debug.Log("Destroy");
         Vector3 p = transform.position - controller.CollisionLayer.transform.position;
         var position = new Vector2Int(
@@ -59,5 +59,6 @@ public class Bomb : MonoBehaviour
                 PaintingMode = PaintingMode.REMOVE_COLOR,
                 DestructionMode = DestructionMode.NONE
             });
+        Object.Destroy(gameObject);
     }
 }

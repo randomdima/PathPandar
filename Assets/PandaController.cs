@@ -44,6 +44,11 @@ public class PandaController : MonoBehaviour
 	public float offsetSide = 0.5f;
 	public float rayColisionDistance = 0.3f;
 
+	public void MakeAngry()
+	{
+		mode = PandaMode.Angry;
+	}
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -59,13 +64,16 @@ public class PandaController : MonoBehaviour
 		{
 			SetCorrectWalkDirection();
 
-			if (activity == Activity.WalkingRight)
+			switch (activity)
 			{
-				walk(1);
-			}
-			else
-			{
-				walk(-1);
+				case Activity.WalkingRight:
+					walk(1);
+					break;
+				case Activity.WalkingLeft:
+					walk(-1);
+					break;
+				case Activity.ExecutingAction:
+					break;
 			}
 		}
 
@@ -93,15 +101,15 @@ public class PandaController : MonoBehaviour
 
 		if (activity == Activity.WalkingRight && rightObstructed)
 		{
-			Flip();
 			activity = Activity.WalkingLeft;
+			Flip();
 			return;
 		}
 
 		if (activity == Activity.WalkingLeft && leftObstructed)
 		{
-			Flip();
 			activity = Activity.WalkingRight;
+			Flip();
 			return;
 		}
 	}
@@ -109,7 +117,8 @@ public class PandaController : MonoBehaviour
 	private void Flip()
 	{
 		Vector3 scale = rb.transform.localScale;
-		scale.x *= -1;
+		var dir = activity == Activity.WalkingLeft ? -1 : 1;
+		scale.x = Math.Abs(scale.x)*dir;
 		rb.transform.localScale = scale;
 	}
 
@@ -120,9 +129,9 @@ public class PandaController : MonoBehaviour
 		RaycastHit2D raycastHit2d_bottom = Physics2D.Raycast(position + direction*offsetSide - Vector2.up*offsetBottom, direction);
 
 		return
-			(raycastHit2d_top.transform != null && raycastHit2d_top.distance < rayColisionDistance)
+			(raycastHit2d_top.transform != null && raycastHit2d_top.distance < rayColisionDistance && !raycastHit2d_top.collider.isTrigger)
 			||
-			(raycastHit2d_bottom.transform != null && raycastHit2d_bottom.distance < rayColisionDistance);
+			(raycastHit2d_bottom.transform != null && raycastHit2d_bottom.distance < rayColisionDistance && !raycastHit2d_bottom.collider.isTrigger);
 	}
 
 	private bool ObstructedRight()
@@ -143,11 +152,13 @@ public class PandaController : MonoBehaviour
 			Physics2D.OverlapCircle(bottomLeftCheck.position, radius, m_whatIsGround);
 	}
 
+
 	private void SetAnimatorActivitiAndMode()
 	{
 		ResetAnimaator();
 
-		setAnimatorWalking(activity == Activity.WalkingLeft || activity == Activity.WalkingRight);
+		var walking = activity == Activity.WalkingLeft || activity == Activity.WalkingRight;
+		setAnimatorWalking(walking);
 
 		switch (mode)
 		{
@@ -164,7 +175,14 @@ public class PandaController : MonoBehaviour
 				setAnimatorRegular(true);
 				break;
 			case PandaMode.Digger:
-				setAnimatorDigger(true);
+				if (walking)
+				{
+					setAnimatorDigger(true);
+				}
+				else
+				{
+					setAnimatorDiggerDigging(true);
+				}
 				break;
 		}
 	}
@@ -177,6 +195,7 @@ public class PandaController : MonoBehaviour
 		setAnimatorDigger(false);
 		setAnimatorRegular(false);
 		setAnimatorWalking(false);
+		setAnimatorDiggerDigging(false);
 	}
 
 	private void setAnimatorAngry(bool value)
@@ -205,5 +224,10 @@ public class PandaController : MonoBehaviour
 	private void setAnimatorWalking(bool value)
 	{
 		animator.SetBool("is_walking", value);
+	}
+
+	private void setAnimatorDiggerDigging(bool value)
+	{
+		animator.SetBool("is_digger_digging", value);
 	}
 }
