@@ -229,6 +229,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: -9169185641895002180}
   hungerController: {fileID: 1859537020}
+  blockController: {fileID: 0}
+  bombPrefab: {fileID: 9068195553833023151, guid: 7f73bc9d44f3ee049b29c133819a45db,
+    type: 3}
   speed: 2.27
   rb: {fileID: -2444270890577501130}
   mode: 0
@@ -237,6 +240,8 @@ MonoBehaviour:
   offsetTop: 0.5
   offsetSide: 0.5
   rayColisionDistance: 0.02
+  bombPlacementThreshold: 5
+  bombCounterStartTime: 0
 --- !u!95 &-9169185641895002180
 Animator:
   serializedVersion: 3

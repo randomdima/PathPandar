@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DTerrain;
 using UnityEditor;
 using UnityEngine;
 using Random = System.Random;
@@ -26,6 +27,9 @@ public class PandaController : MonoBehaviour
 
 	public Animator animator;
 	public HungerController hungerController;
+
+	public BlockController blockController;
+	public GameObject bombPrefab;
 	
 	public float speed;
 	public Rigidbody2D rb;
@@ -38,9 +42,13 @@ public class PandaController : MonoBehaviour
 	public float offsetSide = 0.5f;
 	public float rayColisionDistance = 0.3f;
 
+	public float bombPlacementThreshold = 2f;
+	public float bombCounterStartTime = 0f;
+
 	public void MakeAngry()
 	{
 		mode = PandaMode.Angry;
+		bombCounterStartTime = bombPlacementThreshold;
 	}
 
 	// Start is called before the first frame update
@@ -61,6 +69,16 @@ public class PandaController : MonoBehaviour
 
 			switch (mode)
 			{
+				case PandaMode.Angry:
+					bombCounterStartTime -= Time.deltaTime;
+					//if (bombCounterStartTime + bombPlacementThreshold < Time.time)
+					if (bombCounterStartTime < 0)
+					{
+						Debug.Log("place bomb");
+						var bomb = Instantiate(bombPrefab, rb.transform.position, Quaternion.identity, GameObject.Find("BlockController").transform);
+						bombCounterStartTime = float.MaxValue;
+					}
+					break;
 				case PandaMode.Chef:
 					rightColliders.Union(leftColliders).ToList().ForEach(q =>
 					{
@@ -79,7 +97,6 @@ public class PandaController : MonoBehaviour
 			}
 
 			SetCorrectWalkDirection(Obstructed(leftColliders), Obstructed(rightColliders));
-
 
 			switch (activity)
 			{

@@ -19,7 +19,7 @@ public class HungerController : MonoBehaviour
 	void Update()
 	{
 		angerLevel += angerPerSecond*Time.deltaTime;
-		if (angerLevel >= 1.0f)
+		if (angerLevel >= 1.0f && pandaController.mode != PandaController.PandaMode.Angry)
 		{
 			//angry now
 			pandaController.MakeAngry();
