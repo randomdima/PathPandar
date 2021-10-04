@@ -26,7 +26,11 @@ namespace DTerrain
                 if (Input.GetKeyDown(q))
                 {
                     Destroy(SelectedBlock);
-                    SelectedBlock = Instantiate(Objects[q - KeyCode.Alpha1], transform);
+                    var id = q - KeyCode.Alpha1;
+                    if (id < Objects.Length)
+                    {
+                        SelectedBlock = Instantiate(Objects[q - KeyCode.Alpha1], transform);
+                    }
                 }
             }
         }

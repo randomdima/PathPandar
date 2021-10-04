@@ -11,30 +11,35 @@ namespace DTerrain
     {
         public abstract void Place();
 
-        private float time = 0.0f;
-        private float spawnPeriod = 1f;
+        private float lastSpawnTime = -10;
+        private const float cooldown = 0.75f;
+        private SpriteRenderer sprite;
 
-        public virtual void Start()
+        public void Start()
         {
             var point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             transform.SetPositionAndRotation(new Vector3(point.x, point.y, 0), Quaternion.identity);
         }
 
-        public virtual void Update()
+        public void Update()
         {
-            time += Time.deltaTime;
             if (Input.GetMouseButton(1))
             {
                 Destroy(this);
                 return;
             }
 
-            if (Input.GetMouseButton(0) && time > spawnPeriod)
+            sprite ??= GetComponent<SpriteRenderer>();
+
+            var isReady = Time.time - lastSpawnTime > cooldown;
+            sprite.color = new Color(1, 1, 1, isReady ? 1 : 0.5f);
+
+            if (isReady && Input.GetMouseButton(0))
             {
-                time = 0f;
+                lastSpawnTime = Time.time;
                 Place();
             }
-            
+
             var point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             transform.SetPositionAndRotation(new Vector3(point.x, point.y, 0), Quaternion.identity);
         }
