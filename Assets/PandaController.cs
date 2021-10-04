@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using Random = System.Random;
@@ -23,17 +24,9 @@ public class PandaController : MonoBehaviour
 		ExecutingAction
 	}
 
-	public Transform topRightCheck;
-	public Transform bottomRightCheck;
-	public Transform topLeftCheck;
-	public Transform bottomLeftCheck;
-	public Transform ceilingCheck;
-	public Transform groundCheck;
-	public LayerMask m_whatIsGround;
-
 	public Animator animator;
+	public HungerController hungerController;
 	
-	public bool facingRight;
 	public float speed;
 	public Rigidbody2D rb;
 	public PandaMode mode;
@@ -62,7 +55,31 @@ public class PandaController : MonoBehaviour
 	{
 		if (activity == Activity.WalkingLeft || activity == Activity.WalkingRight)
 		{
-			SetCorrectWalkDirection();
+			var leftColliders = GetSideCollisions(Vector2.left);
+			var rightColliders = GetSideCollisions(Vector2.right);
+			//Debug.Log(rightColliders.First().name);
+
+			switch (mode)
+			{
+				case PandaMode.Chef:
+					rightColliders.Union(leftColliders).ToList().ForEach(q =>
+					{
+						var panda = q.gameObject.GetComponent<PandaController>();
+						if (panda != null && panda.mode == PandaMode.Angry)
+						{
+							panda.hungerController.angerLevel = 0;
+							panda.mode = PandaMode.Regular;
+						}
+					});
+					break;
+				case PandaMode.Builder:
+					break;
+				case PandaMode.Digger:
+					break;
+			}
+
+			SetCorrectWalkDirection(Obstructed(leftColliders), Obstructed(rightColliders));
+
 
 			switch (activity)
 			{
@@ -88,11 +105,8 @@ public class PandaController : MonoBehaviour
 		//rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref curVelocity, 0.05f);
 	}
 
-	private void SetCorrectWalkDirection()
+	private void SetCorrectWalkDirection(bool leftObstructed, bool rightObstructed)
 	{
-		bool rightObstructed = Obstructed(rb.position, Vector2.right);
-		bool leftObstructed = Obstructed(rb.position, Vector2.left);
-
 		if (activity == Activity.WalkingRight && rightObstructed)
 		{
 			activity = Activity.WalkingLeft;
@@ -116,35 +130,29 @@ public class PandaController : MonoBehaviour
 		rb.transform.localScale = scale;
 	}
 
-	private bool Obstructed(Vector2 position, Vector2 direction)
+	private bool Obstructed(List<Collider2D> collisionList)
 	{
-		RaycastHit2D raycastHit2d_top =    Physics2D.Raycast(position + direction*offsetSide + Vector2.up*offsetTop,    direction);
-		RaycastHit2D raycastHit2d_bottom = Physics2D.Raycast(position + direction*offsetSide - Vector2.up*offsetBottom, direction);
-
-		return
-			(raycastHit2d_top.transform != null && raycastHit2d_top.distance < rayColisionDistance && !raycastHit2d_top.collider.isTrigger)
-			||
-			(raycastHit2d_bottom.transform != null && raycastHit2d_bottom.distance < rayColisionDistance && !raycastHit2d_bottom.collider.isTrigger);
+		return collisionList.Any(c => c.transform!=null && !c.isTrigger);
 	}
 
-	private bool ObstructedRight()
+	private List<Collider2D> GetSideCollisions(Vector2 direction)
 	{
-		float radius = 0.1f;
-		return
-			Physics2D.OverlapCircle(topRightCheck.position, radius, m_whatIsGround)
-			||
-			Physics2D.OverlapCircle(bottomRightCheck.position, radius, m_whatIsGround);
-	}
+		RaycastHit2D raycastHit2d_top =    Physics2D.Raycast(rb.position + direction*offsetSide + Vector2.up*offsetTop,    direction);
+		RaycastHit2D raycastHit2d_bottom = Physics2D.Raycast(rb.position + direction*offsetSide - Vector2.up*offsetBottom, direction);
 
-	private bool ObstructedLeft()
-	{
-		float radius = 0.1f;
-		return
-			Physics2D.OverlapCircle(topLeftCheck.position, radius, m_whatIsGround)
-			||
-			Physics2D.OverlapCircle(bottomLeftCheck.position, radius, m_whatIsGround);
-	}
+		var list = new List<Collider2D>();
+		if (raycastHit2d_top.transform != null && raycastHit2d_top.distance < rayColisionDistance)
+		{
+			list.Add(raycastHit2d_top.collider);
+		}
 
+		if (raycastHit2d_bottom.transform != null && raycastHit2d_bottom.distance < rayColisionDistance)
+		{
+			list.Add(raycastHit2d_bottom.collider);
+		}
+
+		return list;
+	}
 
 	private void SetAnimatorActivitiAndMode()
 	{

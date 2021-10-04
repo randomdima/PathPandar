@@ -227,17 +227,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cde64b79e24af44c8cda0a8316bae1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topRightCheck: {fileID: 5834037549101980344}
-  bottomRightCheck: {fileID: 5106611947837586980}
-  topLeftCheck: {fileID: 4711713022918667903}
-  bottomLeftCheck: {fileID: 639458911424729807}
-  ceilingCheck: {fileID: 5876107687924389123}
-  groundCheck: {fileID: 6465834723176561754}
-  m_whatIsGround:
-    serializedVersion: 2
-    m_Bits: 0
   animator: {fileID: -9169185641895002180}
-  facingRight: 0
+  hungerController: {fileID: 1859537020}
   speed: 2.27
   rb: {fileID: -2444270890577501130}
   mode: 0
