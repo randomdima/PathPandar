@@ -6,7 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class UILogic : MonoBehaviour
 {
-    public Text label;
+    public Text pandaCount;
+    public Text bambooCount;
+    public Text bombCount;
     public GameObject levelParent;
     public GameObject panel;
 
@@ -33,10 +35,18 @@ public class UILogic : MonoBehaviour
 
     }
 
+    void OnDestroy()
+    {
+        Bus.Unsubscribe<CountSavedPandaEvent>(CountSavedPanda);
+        Bus.Unsubscribe<CountFailedPandaEvent>(CountFailedPanda);
+        Bus.Unsubscribe<BombCountEvent>(BombCount);
+        Bus.Unsubscribe<BambooCountEvent>(BambooCount);
+    }
+
     void Start()
     {
-        if(label == null)
-            label = transform.Find("SavedPandas").GetComponent<Text>();
+        if(pandaCount == null)
+            pandaCount = transform.Find("SavedPandas").GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -64,7 +74,7 @@ public class UILogic : MonoBehaviour
     private void CountSavedPanda(CountSavedPandaEvent mEvent)
     {
         score++;
-        label.text = $"Score: {score}";
+        pandaCount.text = $"Score: {score}";
     }
 
     private void CountFailedPanda(CountFailedPandaEvent mEvent)
@@ -74,12 +84,12 @@ public class UILogic : MonoBehaviour
 
     private void BombCount(BombCountEvent mEvent)
     {
-        
+        bombCount.text = $"{mEvent.count}";
     }
 
     private void BambooCount(BambooCountEvent mEvent)
     {
-        
+        bambooCount.text = $"{mEvent.count}";
     }
 
 
