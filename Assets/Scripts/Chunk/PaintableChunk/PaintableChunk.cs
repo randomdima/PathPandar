@@ -52,7 +52,7 @@ namespace DTerrain
                 for (int i = 0; i < len; i++)
                 {
                     var px = column;
-                    var py = i+columnMin;
+                    var py = i+columnMin-(r.y-common.y);
                     var ss = py * pp.Shape.Texture.width + px;
                     
                     var color = pp.Shape.Pixels[ss];
