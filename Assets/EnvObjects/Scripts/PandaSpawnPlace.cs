@@ -43,6 +43,11 @@ public class PandaSpawnPlace : MonoBehaviour
         v.x += 1;
         Instantiate(pandaPrefab, v, Quaternion.identity);
         currentCount++;
+
+        if (currentCount >= pandaCount)
+        {
+            UILogic.Bus.Publish(new AllPandasSpawnedEvent());
+        }
     }
 
     

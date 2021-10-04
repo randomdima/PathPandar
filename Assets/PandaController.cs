@@ -42,13 +42,13 @@ public class PandaController : MonoBehaviour
 	public float offsetSide = 0.5f;
 	public float rayColisionDistance = 0.3f;
 
-	public float bombPlacementThreshold = 2f;
-	public float bombCounterStartTime = 0f;
+	public float bombPlacementPeriod = 10f;
+	public float bombCountdown = 0f;
 
 	public void MakeAngry()
 	{
 		mode = PandaMode.Angry;
-		bombCounterStartTime = bombPlacementThreshold;
+		bombCountdown = bombPlacementPeriod;
 	}
 
 	// Start is called before the first frame update
@@ -70,13 +70,13 @@ public class PandaController : MonoBehaviour
 			switch (mode)
 			{
 				case PandaMode.Angry:
-					bombCounterStartTime -= Time.deltaTime;
+					bombCountdown -= Time.deltaTime;
 					//if (bombCounterStartTime + bombPlacementThreshold < Time.time)
-					if (bombCounterStartTime < 0)
+					if (bombCountdown < 0)
 					{
 						Debug.Log("place bomb");
 						var bomb = Instantiate(bombPrefab, rb.transform.position, Quaternion.identity, GameObject.Find("BlockController").transform);
-						bombCounterStartTime = float.MaxValue;
+						bombCountdown = bombPlacementPeriod;
 					}
 					break;
 				case PandaMode.Chef:
