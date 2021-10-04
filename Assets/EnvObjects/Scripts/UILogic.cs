@@ -18,6 +18,21 @@ public class UILogic : MonoBehaviour
 
     public static EventBus Bus = new EventBus();
 
+    public void RestartOnClick()
+    {
+		Reload();
+    }
+
+    public void Level1OnClick()
+    {
+	    SceneManager.LoadScene("Level1");
+    }
+    public void Level2OnClick()
+    {
+	    SceneManager.LoadScene("Level2");
+    }
+
+
     private void OnEnable()
     {
         Bus = new EventBus();
@@ -58,8 +73,7 @@ public class UILogic : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.name);
+            Reload();
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -73,6 +87,12 @@ public class UILogic : MonoBehaviour
                 Time.timeScale = 1.0f;
             }
         }
+    }
+
+    private void Reload()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
     }
 
     private void CountSavedPanda(CountSavedPandaEvent mEvent)
@@ -98,10 +118,10 @@ public class UILogic : MonoBehaviour
 
     private void GameEnded(GameEndedEvent mEvent)
     {
-	    Debug.Log($"Game ended, score {score}");
-	    isPaused = true;
-	    panel.SetActive(isPaused);
-	    Time.timeScale = 0.0f;
+        Debug.Log($"Game ended, score {score}");
+        isPaused = true;
+        panel.SetActive(isPaused);
+        Time.timeScale = 0.0f;
     }
 }
 
