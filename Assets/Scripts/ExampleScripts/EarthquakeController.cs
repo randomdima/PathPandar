@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,20 +12,18 @@ namespace DTerrain
         public GameObject[] Stones { get; set; }
         
         [field:SerializeField]
-        public Texture2D Boom { get; set; }
+        public Texture2D[] Cracks { get; set; }
 
         [SerializeField] 
         public BasicPaintableLayer CollisionLayer;
         [SerializeField] 
         public BasicPaintableLayer VisibleLayer;
         
-        private GameObject SelectedBlock { get; set; }
-        
-        private ComplexShape Shape { get; set; }
+        private ComplexShape[] CrackShapes { get; set; }
 
         public void Start()
         {
-            Shape = new ComplexShape(Boom);
+            CrackShapes = Cracks.Select(q=> new ComplexShape(q)).ToArray();
             PlayerStore.Init();
             StartCoroutine("Quake");
         }
@@ -39,20 +38,23 @@ namespace DTerrain
                 {
                     var x = start.x + Random.value * CollisionLayer.OriginalTexture.width / 100f;
                     var stoneId = (int)Math.Floor(Random.value * Stones.Length);
-                    Instantiate(Stones[stoneId], new Vector3(x, 10f, 0), Quaternion.identity);
+                    var obj = Instantiate(Stones[stoneId], new Vector3(x, 10f, 0), Quaternion.identity);
+                    obj.transform.localScale = obj.transform.localScale*(Random.value+0.5f);
                 }
                 
                 for (var q = 0; q < (int)(Random.value*10); q++)
                 {
                     var position = new Vector2Int(
                         (int)(CollisionLayer.OriginalTexture.width*Random.value),
-                        (int)(CollisionLayer.OriginalTexture.height*Random.value));
+                        (int)(CollisionLayer.OriginalTexture.height*(Random.value-0.2f)));
+                    var shapeId = (int)Math.Floor(Random.value * CrackShapes.Length);
+                    var shape = CrackShapes[shapeId];
             
                     CollisionLayer.Paint(
                         new PaintingParameters()
                         {
                             Position = position,
-                            Shape = Shape,
+                            Shape = shape,
                             PaintingMode = PaintingMode.REMOVE_COLOR,
                             DestructionMode = DestructionMode.DESTROY
                         });
@@ -61,7 +63,7 @@ namespace DTerrain
                         new PaintingParameters()
                         {
                             Position = position,
-                            Shape = Shape,
+                            Shape = shape,
                             PaintingMode = PaintingMode.REMOVE_COLOR,
                             DestructionMode = DestructionMode.NONE
                         });
