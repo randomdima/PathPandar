@@ -14,7 +14,7 @@ namespace DTerrain
         public ITextureSource TextureSource { get; set; }
         public int SortingLayerID { get; set; }
 
-        protected bool painted=false;
+        protected bool painted=true;
 
 
         public virtual void Init()
