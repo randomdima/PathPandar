@@ -24,6 +24,7 @@ public class UILogic : MonoBehaviour
         Bus.Subscribe<CountFailedPandaEvent>(CountFailedPanda);
         Bus.Subscribe<BombCountEvent>(BombCount);
         Bus.Subscribe<BambooCountEvent>(BambooCount);
+        Bus.Subscribe<GameEndedEvent>(GameEnded);
     }
 
     private void OnDisable()
@@ -32,6 +33,7 @@ public class UILogic : MonoBehaviour
         Bus.Unsubscribe<CountFailedPandaEvent>(CountFailedPanda);
         Bus.Unsubscribe<BombCountEvent>(BombCount);
         Bus.Unsubscribe<BambooCountEvent>(BambooCount);
+        Bus.Unsubscribe<GameEndedEvent>(GameEnded);
 
     }
 
@@ -84,7 +86,10 @@ public class UILogic : MonoBehaviour
         bambooCount.text = $"{mEvent.count}";
     }
 
-
+    private void GameEnded(GameEndedEvent mEvent)
+    {
+        Debug.Log($"Game ended, score {score}");
+    }
 }
 
 public class CountSavedPandaEvent : EventBase
@@ -116,4 +121,8 @@ public class BambooCountEvent : EventBase
         this.count = count;
     }
 }
+
+public class AllPandasSpawnedEvent : EventBase { }
+
+public class GameEndedEvent : EventBase { }
 
