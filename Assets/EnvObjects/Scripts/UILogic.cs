@@ -20,12 +20,16 @@ public class UILogic : MonoBehaviour
     {
         Bus.Subscribe<CountSavedPandaEvent>(CountSavedPanda);
         Bus.Subscribe<CountFailedPandaEvent>(CountFailedPanda);
+        Bus.Subscribe<BombCountEvent>(BombCount);
+        Bus.Subscribe<BambooCountEvent>(BambooCount);
     }
 
     private void OnDisable()
     {
         Bus.Unsubscribe<CountSavedPandaEvent>(CountSavedPanda);
         Bus.Unsubscribe<CountFailedPandaEvent>(CountFailedPanda);
+        Bus.Unsubscribe<BombCountEvent>(BombCount);
+        Bus.Unsubscribe<BambooCountEvent>(BambooCount);
 
     }
 
@@ -68,6 +72,16 @@ public class UILogic : MonoBehaviour
         failed++;
     }
 
+    private void BombCount(BombCountEvent mEvent)
+    {
+        
+    }
+
+    private void BambooCount(BambooCountEvent mEvent)
+    {
+        
+    }
+
 
 }
 
@@ -80,5 +94,24 @@ public class CountSavedPandaEvent : EventBase
 public class CountFailedPandaEvent : EventBase
 {
 
+}
+
+
+public class BombCountEvent : EventBase
+{
+    public int count = 0;
+    public BombCountEvent(int count)
+    {
+        this.count = count;
+    }
+}
+
+public class BambooCountEvent : EventBase
+{
+    public int count = 0;
+    public BambooCountEvent(int count)
+    {
+        this.count = count;
+    }
 }
 
