@@ -20,16 +20,26 @@ public class UILogic : MonoBehaviour
 
     public void RestartOnClick()
     {
-		Reload();
+        isPaused = false;
+        panel.SetActive(isPaused);
+        Time.timeScale = 1.0f;
+        Reload();
     }
 
     public void Level1OnClick()
     {
-	    SceneManager.LoadScene("Level1");
+        isPaused = false;
+        panel.SetActive(isPaused);
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene("Level1");
     }
+
     public void Level2OnClick()
     {
-	    SceneManager.LoadScene("Level2");
+        isPaused = false;
+        panel.SetActive(isPaused);
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene("Level2");
     }
 
 
