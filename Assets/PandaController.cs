@@ -24,17 +24,9 @@ public class PandaController : MonoBehaviour
 		ExecutingAction
 	}
 
-	public Transform topRightCheck;
-	public Transform bottomRightCheck;
-	public Transform topLeftCheck;
-	public Transform bottomLeftCheck;
-	public Transform ceilingCheck;
-	public Transform groundCheck;
-	public LayerMask m_whatIsGround;
-
 	public Animator animator;
+	public HungerController hungerController;
 	
-	public bool facingRight;
 	public float speed;
 	public Rigidbody2D rb;
 	public PandaMode mode;
@@ -67,6 +59,25 @@ public class PandaController : MonoBehaviour
 			var rightColliders = GetSideCollisions(Vector2.right);
 			//Debug.Log(rightColliders.First().name);
 
+			switch (mode)
+			{
+				case PandaMode.Chef:
+					rightColliders.Union(leftColliders).ToList().ForEach(q =>
+					{
+						var panda = q.gameObject.GetComponent<PandaController>();
+						if (panda != null && panda.mode == PandaMode.Angry)
+						{
+							panda.hungerController.angerLevel = 0;
+							panda.mode = PandaMode.Regular;
+						}
+					});
+					break;
+				case PandaMode.Builder:
+					break;
+				case PandaMode.Digger:
+					break;
+			}
+
 			SetCorrectWalkDirection(Obstructed(leftColliders), Obstructed(rightColliders));
 
 
@@ -96,12 +107,6 @@ public class PandaController : MonoBehaviour
 
 	private void SetCorrectWalkDirection(bool leftObstructed, bool rightObstructed)
 	{
-		//bool rightObstructed = Obstructed(rb.position, Vector2.right);
-		//bool leftObstructed = Obstructed(rb.position, Vector2.left);
-
-		//Debug.Log($"{leftObstructed} {rightObstructed}");
-
-
 		if (activity == Activity.WalkingRight && rightObstructed)
 		{
 			activity = Activity.WalkingLeft;
@@ -123,20 +128,6 @@ public class PandaController : MonoBehaviour
 		var dir = activity == Activity.WalkingLeft ? -1 : 1;
 		scale.x = Math.Abs(scale.x)*dir;
 		rb.transform.localScale = scale;
-	}
-
-	private bool Obstructed(Vector2 position, Vector2 direction)
-	{
-		RaycastHit2D raycastHit2d_top =    Physics2D.Raycast(position + direction*offsetSide + Vector2.up*offsetTop,    direction);
-		RaycastHit2D raycastHit2d_bottom = Physics2D.Raycast(position + direction*offsetSide - Vector2.up*offsetBottom, direction);
-
-		bool topCollision = raycastHit2d_top.transform != null && raycastHit2d_top.distance < rayColisionDistance;
-		bool bottomCollistion = raycastHit2d_bottom.transform != null && raycastHit2d_bottom.distance < rayColisionDistance;
-
-		return
-			(topCollision && !raycastHit2d_top.collider.isTrigger)
-			||
-			(bottomCollistion && !raycastHit2d_bottom.collider.isTrigger);
 	}
 
 	private bool Obstructed(List<Collider2D> collisionList)
@@ -162,25 +153,6 @@ public class PandaController : MonoBehaviour
 
 		return list;
 	}
-
-	private bool ObstructedRight()
-	{
-		float radius = 0.1f;
-		return
-			Physics2D.OverlapCircle(topRightCheck.position, radius, m_whatIsGround)
-			||
-			Physics2D.OverlapCircle(bottomRightCheck.position, radius, m_whatIsGround);
-	}
-
-	private bool ObstructedLeft()
-	{
-		float radius = 0.1f;
-		return
-			Physics2D.OverlapCircle(topLeftCheck.position, radius, m_whatIsGround)
-			||
-			Physics2D.OverlapCircle(bottomLeftCheck.position, radius, m_whatIsGround);
-	}
-
 
 	private void SetAnimatorActivitiAndMode()
 	{
