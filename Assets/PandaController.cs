@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using Random = System.Random;
 
 public class PandaController : MonoBehaviour
 {
@@ -53,8 +54,7 @@ public class PandaController : MonoBehaviour
 	void Start()
 	{
 		activity = Activity.WalkingRight;
-		mode = PandaMode.Regular;
-		//walk(1);
+		mode = (PandaMode) (new Random().Next() % 4);
 	}
 
 	// Update is called once per frame
@@ -82,20 +82,14 @@ public class PandaController : MonoBehaviour
 
 	void walk(int d)
 	{
-		//rb.AddForce(Vector2.right*speed*d);
-
 		Vector3 targetVelocity = new Vector2(speed * d, rb.velocity.y);
 		// And then smoothing it out and applying it to the character
-		Vector3 curVelocity;
 		rb.velocity = targetVelocity;
 		//rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref curVelocity, 0.05f);
 	}
 
 	private void SetCorrectWalkDirection()
 	{
-		//bool rightObstructed = ObstructedRight();
-		//bool leftObstructed = ObstructedLeft();
-
 		bool rightObstructed = Obstructed(rb.position, Vector2.right);
 		bool leftObstructed = Obstructed(rb.position, Vector2.left);
 
@@ -124,7 +118,6 @@ public class PandaController : MonoBehaviour
 
 	private bool Obstructed(Vector2 position, Vector2 direction)
 	{
-
 		RaycastHit2D raycastHit2d_top =    Physics2D.Raycast(position + direction*offsetSide + Vector2.up*offsetTop,    direction);
 		RaycastHit2D raycastHit2d_bottom = Physics2D.Raycast(position + direction*offsetSide - Vector2.up*offsetBottom, direction);
 
