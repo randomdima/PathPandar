@@ -21,6 +21,8 @@ namespace DTerrain
             transform.SetPositionAndRotation(new Vector3(point.x, point.y, 0), Quaternion.identity);
         }
 
+        protected virtual bool CanPlace() => true;
+
         public void Update()
         {
             if (Input.GetMouseButton(1))
@@ -31,7 +33,7 @@ namespace DTerrain
 
             sprite ??= GetComponent<SpriteRenderer>();
 
-            var isReady = Time.time - lastSpawnTime > cooldown;
+            var isReady = CanPlace() && Time.time - lastSpawnTime > cooldown;
             sprite.color = new Color(1, 1, 1, isReady ? 1 : 0.5f);
 
             if (isReady && Input.GetMouseButton(0))

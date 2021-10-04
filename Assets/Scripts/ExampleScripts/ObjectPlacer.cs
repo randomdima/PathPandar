@@ -19,7 +19,13 @@ namespace DTerrain
 
         public override void Place()
         {
+            PlayerStore.BombCount--;
             Instantiate(Object, transform.position, Quaternion.identity, GameObject.Find("BlockController").transform);
+        }
+
+        protected override bool CanPlace()
+        {
+            return PlayerStore.BombCount > 0;
         }
     }
 }

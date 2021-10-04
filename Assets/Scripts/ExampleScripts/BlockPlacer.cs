@@ -33,8 +33,11 @@ namespace DTerrain
             Shape = new ComplexShape(Texture);
         }
 
+        protected override bool CanPlace() => PlayerStore.BlockCount > 0;
+
         public override void Place()
         {
+            PlayerStore.BlockCount--;
             Vector3 p = transform.position - controller.CollisionLayer.transform.position;
             var position = new Vector2Int(
                 (int)(p.x * controller.CollisionLayer.PPU) - Shape.Texture.width / 2,
