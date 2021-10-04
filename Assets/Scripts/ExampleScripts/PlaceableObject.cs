@@ -11,10 +11,15 @@ namespace DTerrain
     {
         public abstract bool Place();
 
+        private float time = 0.0f;
+        private float spawnPeriod = 1f;
+
         public void Update()
         {
-            if (Input.GetMouseButton(0))
+            time += Time.deltaTime;
+            if (Input.GetMouseButton(0) && time > spawnPeriod)
             {
+                time = 0f;
                 Place();
             }
             
