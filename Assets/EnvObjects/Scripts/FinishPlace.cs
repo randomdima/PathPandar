@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using GameEventBus;
 using GameEventBus.Events;
 
@@ -15,7 +16,11 @@ public class FinishPlace : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Scene scene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(scene.name);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -25,7 +30,7 @@ public class FinishPlace : MonoBehaviour
         if (p != null)
         {
             Object.Destroy(p.gameObject);
-            UILogic.Bus.Publish<CountPandaEvent>(new CountPandaEvent());
+            UILogic.Bus.Publish(new CountSavedPandaEvent());
         } else if(p == null)
         {
             Debug.Log("NULL");
