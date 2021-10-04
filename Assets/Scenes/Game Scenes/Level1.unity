@@ -640,6 +640,43 @@ PrefabInstance:
       propertyPath: CollisionLayer
       value: 
       objectReference: {fileID: 424001841}
+    - target: {fileID: 2954610626126428594, guid: bbd05886acf09564db495945473e3b68,
+        type: 3}
+      propertyPath: <Objects>k__BackingField.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954610626126428594, guid: bbd05886acf09564db495945473e3b68,
+        type: 3}
+      propertyPath: <Objects>k__BackingField.Array.data[0]
+      value: 
+      objectReference: {fileID: 6356650488622093243, guid: 8d37de4594c44f847817a77a1aaed470,
+        type: 3}
+    - target: {fileID: 2954610626126428594, guid: bbd05886acf09564db495945473e3b68,
+        type: 3}
+      propertyPath: <Objects>k__BackingField.Array.data[1]
+      value: 
+      objectReference: {fileID: 6356650488622093243, guid: f03760d1de158444690d28fb4fae22b0,
+        type: 3}
+    - target: {fileID: 2954610626126428594, guid: bbd05886acf09564db495945473e3b68,
+        type: 3}
+      propertyPath: <Objects>k__BackingField.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954610626126428594, guid: bbd05886acf09564db495945473e3b68,
+        type: 3}
+      propertyPath: <Objects>k__BackingField.Array.data[3]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954610626126428594, guid: bbd05886acf09564db495945473e3b68,
+        type: 3}
+      propertyPath: <Objects>k__BackingField.Array.data[4]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954610626126428594, guid: bbd05886acf09564db495945473e3b68,
+        type: 3}
+      propertyPath: <Objects>k__BackingField.Array.data[5]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6768108279640743284, guid: bbd05886acf09564db495945473e3b68,
         type: 3}
       propertyPath: m_Name
