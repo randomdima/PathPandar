@@ -37,6 +37,14 @@ public class UILogic : MonoBehaviour
 
     }
 
+    void OnDestroy()
+    {
+        Bus.Unsubscribe<CountSavedPandaEvent>(CountSavedPanda);
+        Bus.Unsubscribe<CountFailedPandaEvent>(CountFailedPanda);
+        Bus.Unsubscribe<BombCountEvent>(BombCount);
+        Bus.Unsubscribe<BambooCountEvent>(BambooCount);
+    }
+
     void Start()
     {
         if(pandaCount == null)
