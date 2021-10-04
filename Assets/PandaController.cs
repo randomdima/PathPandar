@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using Random = System.Random;
@@ -62,7 +63,12 @@ public class PandaController : MonoBehaviour
 	{
 		if (activity == Activity.WalkingLeft || activity == Activity.WalkingRight)
 		{
-			SetCorrectWalkDirection();
+			var leftColliders = GetSideCollisions(Vector2.left);
+			var rightColliders = GetSideCollisions(Vector2.right);
+			//Debug.Log(rightColliders.First().name);
+
+			SetCorrectWalkDirection(Obstructed(leftColliders), Obstructed(rightColliders));
+
 
 			switch (activity)
 			{
@@ -88,10 +94,13 @@ public class PandaController : MonoBehaviour
 		//rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref curVelocity, 0.05f);
 	}
 
-	private void SetCorrectWalkDirection()
+	private void SetCorrectWalkDirection(bool leftObstructed, bool rightObstructed)
 	{
-		bool rightObstructed = Obstructed(rb.position, Vector2.right);
-		bool leftObstructed = Obstructed(rb.position, Vector2.left);
+		//bool rightObstructed = Obstructed(rb.position, Vector2.right);
+		//bool leftObstructed = Obstructed(rb.position, Vector2.left);
+
+		//Debug.Log($"{leftObstructed} {rightObstructed}");
+
 
 		if (activity == Activity.WalkingRight && rightObstructed)
 		{
@@ -121,10 +130,37 @@ public class PandaController : MonoBehaviour
 		RaycastHit2D raycastHit2d_top =    Physics2D.Raycast(position + direction*offsetSide + Vector2.up*offsetTop,    direction);
 		RaycastHit2D raycastHit2d_bottom = Physics2D.Raycast(position + direction*offsetSide - Vector2.up*offsetBottom, direction);
 
+		bool topCollision = raycastHit2d_top.transform != null && raycastHit2d_top.distance < rayColisionDistance;
+		bool bottomCollistion = raycastHit2d_bottom.transform != null && raycastHit2d_bottom.distance < rayColisionDistance;
+
 		return
-			(raycastHit2d_top.transform != null && raycastHit2d_top.distance < rayColisionDistance && !raycastHit2d_top.collider.isTrigger)
+			(topCollision && !raycastHit2d_top.collider.isTrigger)
 			||
-			(raycastHit2d_bottom.transform != null && raycastHit2d_bottom.distance < rayColisionDistance && !raycastHit2d_bottom.collider.isTrigger);
+			(bottomCollistion && !raycastHit2d_bottom.collider.isTrigger);
+	}
+
+	private bool Obstructed(List<Collider2D> collisionList)
+	{
+		return collisionList.Any(c => c.transform!=null && !c.isTrigger);
+	}
+
+	private List<Collider2D> GetSideCollisions(Vector2 direction)
+	{
+		RaycastHit2D raycastHit2d_top =    Physics2D.Raycast(rb.position + direction*offsetSide + Vector2.up*offsetTop,    direction);
+		RaycastHit2D raycastHit2d_bottom = Physics2D.Raycast(rb.position + direction*offsetSide - Vector2.up*offsetBottom, direction);
+
+		var list = new List<Collider2D>();
+		if (raycastHit2d_top.transform != null && raycastHit2d_top.distance < rayColisionDistance)
+		{
+			list.Add(raycastHit2d_top.collider);
+		}
+
+		if (raycastHit2d_bottom.transform != null && raycastHit2d_bottom.distance < rayColisionDistance)
+		{
+			list.Add(raycastHit2d_bottom.collider);
+		}
+
+		return list;
 	}
 
 	private bool ObstructedRight()
