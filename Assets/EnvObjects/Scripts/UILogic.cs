@@ -2,13 +2,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using GameEventBus;
 using GameEventBus.Events;
+using UnityEngine.SceneManagement;
 
 public class UILogic : MonoBehaviour
 {
     public Text label;
+    public GameObject levelParent;
+    public GameObject panel;
 
     private int score = 0;
     private int failed = 0;
+    private bool isActive = true;
 
     public static EventBus Bus = new EventBus();
 
@@ -34,7 +38,17 @@ public class UILogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Scene scene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(scene.name);
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            isActive = !isActive;
+            levelParent.SetActive(isActive);
+            panel.SetActive(!isActive);
+        }
     }
 
     private void CountSavedPanda(CountSavedPandaEvent mEvent)
