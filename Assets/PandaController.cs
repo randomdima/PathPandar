@@ -74,7 +74,7 @@ public class PandaController : MonoBehaviour
 					//if (bombCounterStartTime + bombPlacementThreshold < Time.time)
 					if (bombCountdown < 0)
 					{
-						Debug.Log("place bomb");
+						//Debug.Log("place bomb");
 						var bomb = Instantiate(bombPrefab, rb.transform.position, Quaternion.identity, GameObject.Find("BlockController").transform);
 						bombCountdown = bombPlacementPeriod;
 					}

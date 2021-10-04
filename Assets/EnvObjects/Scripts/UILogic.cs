@@ -20,6 +20,7 @@ public class UILogic : MonoBehaviour
 
     private void OnEnable()
     {
+        Bus = new EventBus();
         Bus.Subscribe<CountSavedPandaEvent>(CountSavedPanda);
         Bus.Subscribe<CountFailedPandaEvent>(CountFailedPanda);
         Bus.Subscribe<BombCountEvent>(BombCount);
@@ -43,6 +44,7 @@ public class UILogic : MonoBehaviour
         Bus.Unsubscribe<CountFailedPandaEvent>(CountFailedPanda);
         Bus.Unsubscribe<BombCountEvent>(BombCount);
         Bus.Unsubscribe<BambooCountEvent>(BambooCount);
+        Bus.Unsubscribe<GameEndedEvent>(GameEnded);
     }
 
     void Start()
@@ -96,7 +98,10 @@ public class UILogic : MonoBehaviour
 
     private void GameEnded(GameEndedEvent mEvent)
     {
-        Debug.Log($"Game ended, score {score}");
+	    Debug.Log($"Game ended, score {score}");
+	    isPaused = true;
+	    panel.SetActive(isPaused);
+	    Time.timeScale = 0.0f;
     }
 }
 
