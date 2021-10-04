@@ -19,6 +19,11 @@ namespace DTerrain
         
         private GameObject SelectedBlock { get; set; }
 
+        public void Start()
+        {
+            PlayerStore.Init();
+        }
+
         public void Update()
         {
             for (var q = KeyCode.Alpha1; q < KeyCode.Alpha9; q++)

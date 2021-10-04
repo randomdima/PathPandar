@@ -5,8 +5,8 @@ using UnityEngine;
 
 public static class PlayerStore
 {
-    private static int bombCount = 5;
-    private static int blockCount = 10;
+    private static int bombCount;
+    private static int blockCount;
 
     public static int BlockCount
     {
@@ -26,5 +26,11 @@ public static class PlayerStore
             bombCount = value;
             UILogic.Bus.Publish(new BombCountEvent(value));
         }
+    }
+
+    public static void Init()
+    {
+        BlockCount = 10;
+        BombCount = 5;
     }
 }
