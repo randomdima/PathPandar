@@ -12,7 +12,7 @@ public class UILogic : MonoBehaviour
 
     private int score = 0;
     private int failed = 0;
-    private bool isActive = true;
+    private bool isPaused = true;
 
     public static EventBus Bus = new EventBus();
 
@@ -45,9 +45,15 @@ public class UILogic : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            isActive = !isActive;
-            levelParent.SetActive(isActive);
-            panel.SetActive(!isActive);
+            isPaused = !isPaused;
+            panel.SetActive(isPaused);
+            if(isPaused)
+            {
+                Time.timeScale = 0.0f;
+            } else
+            {
+                Time.timeScale = 1.0f;
+            }
         }
     }
 
