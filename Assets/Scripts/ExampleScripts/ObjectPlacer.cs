@@ -17,10 +17,9 @@ namespace DTerrain
         [field:SerializeField]
         public GameObject Object { get; set; }
 
-        public override bool Place()
+        public override void Place()
         {
             Instantiate(Object, transform.position, Quaternion.identity, GameObject.Find("BlockController").transform);
-            return true;
         }
     }
 }

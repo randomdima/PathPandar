@@ -33,7 +33,7 @@ namespace DTerrain
             Shape = new ComplexShape(Texture);
         }
 
-        public override bool Place()
+        public override void Place()
         {
             Vector3 p = transform.position - controller.CollisionLayer.transform.position;
             var position = new Vector2Int(
@@ -57,8 +57,6 @@ namespace DTerrain
                     PaintingMode = PaintingMode.REPLACE_COLOR,
                     DestructionMode = DestructionMode.BUILD
                 });
-
-            return false;
         }
     }
 }

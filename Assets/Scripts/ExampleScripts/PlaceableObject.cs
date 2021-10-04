@@ -9,14 +9,26 @@ namespace DTerrain
 {
     public abstract class PlaceableObject : MonoBehaviour
     {
-        public abstract bool Place();
+        public abstract void Place();
 
         private float time = 0.0f;
         private float spawnPeriod = 1f;
 
-        public void Update()
+        public virtual void Start()
+        {
+            var point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            transform.SetPositionAndRotation(new Vector3(point.x, point.y, 0), Quaternion.identity);
+        }
+
+        public virtual void Update()
         {
             time += Time.deltaTime;
+            if (Input.GetMouseButton(1))
+            {
+                Destroy(this);
+                return;
+            }
+
             if (Input.GetMouseButton(0) && time > spawnPeriod)
             {
                 time = 0f;
