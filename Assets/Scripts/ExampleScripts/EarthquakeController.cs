@@ -38,7 +38,7 @@ namespace DTerrain
                 {
                     var x = start.x + Random.value * CollisionLayer.OriginalTexture.width / 100f;
                     var stoneId = (int)Math.Floor(Random.value * Stones.Length);
-                    var obj = Instantiate(Stones[stoneId], new Vector3(x, 10f, 0), Quaternion.identity);
+                    var obj = Instantiate(Stones[stoneId], new Vector3(x, 10f, 0), new Quaternion(1,1,Random.value*360,1));
                     obj.transform.localScale = obj.transform.localScale*(Random.value+0.5f);
                 }
                 

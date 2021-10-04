@@ -509,6 +509,58 @@ PrefabInstance:
       objectReference: {fileID: 436173160}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 095e2ac0c8287194a963c5e53b126ae0, type: 3}
+--- !u!1 &1123319960
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1123319962}
+  - component: {fileID: 1123319961}
+  m_Layer: 0
+  m_Name: Earthquake
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1123319961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1123319960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f82d29838f9642498845db2b3fa11529, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Stones>k__BackingField:
+  - {fileID: 5366395262890889836, guid: 9f55a9036f28b374e83c598e3b5d246d, type: 3}
+  - {fileID: 5366395262890889836, guid: e2059b41cc9965b49a9a76ff2dbe658f, type: 3}
+  <Cracks>k__BackingField:
+  - {fileID: 2800000, guid: cc6b19a9eeb03624da71f63f27e8cf7c, type: 3}
+  - {fileID: 2800000, guid: cb47811872123d5498694aa89a88e519, type: 3}
+  - {fileID: 2800000, guid: 821079a920371cc4d88de57e0a107521, type: 3}
+  CollisionLayer: {fileID: 424001841}
+  VisibleLayer: {fileID: 424001840}
+--- !u!4 &1123319962
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1123319960}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 23.311222, y: 21.040668, z: -3002.501}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1570063383 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7147845454451802173, guid: bbd05886acf09564db495945473e3b68,
