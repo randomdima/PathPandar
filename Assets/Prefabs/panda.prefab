@@ -142,7 +142,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 500
   m_Sprite: {fileID: 21300000, guid: e99e3fdc64164f948a2b06a36269058a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -240,8 +240,8 @@ MonoBehaviour:
   offsetTop: 0.5
   offsetSide: 0.5
   rayColisionDistance: 0.02
-  bombPlacementThreshold: 5
-  bombCounterStartTime: 0
+  bombPlacementPeriod: 10
+  bombCountdown: 0
 --- !u!95 &-9169185641895002180
 Animator:
   serializedVersion: 3

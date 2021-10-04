@@ -32,7 +32,7 @@ namespace DTerrain
         {
             while (true)
             {
-                yield return new WaitForSeconds(5f);
+                yield return new WaitForSeconds(10f);
                 var start = CollisionLayer.transform.position;
                 for (var q = 0; q < (int)(Random.value*5); q++)
                 {
