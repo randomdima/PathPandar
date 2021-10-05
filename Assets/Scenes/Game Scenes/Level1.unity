@@ -571,6 +571,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1123319962}
   - component: {fileID: 1123319961}
+  - component: {fileID: 1123319963}
   m_Layer: 0
   m_Name: Earthquake
   m_TagString: Untagged
@@ -613,6 +614,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1123319963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1123319960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87b121b79d007534f957e8e406358711, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelTransform: {fileID: 436173161}
+  shakeDuration: 0
+  shakeAmount: 0.2
+  decreaseFactor: 1
 --- !u!4 &1570063383 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7147845454451802173, guid: bbd05886acf09564db495945473e3b68,

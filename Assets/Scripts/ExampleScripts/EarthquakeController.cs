@@ -33,6 +33,7 @@ namespace DTerrain
             while (true)
             {
                 yield return new WaitForSeconds(10f);
+                GetComponent<LevelShake>().shakeDuration = 0.1f;
                 var start = CollisionLayer.transform.position;
                 for (var q = 0; q < (int)(Random.value*5); q++)
                 {
