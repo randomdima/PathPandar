@@ -149,7 +149,7 @@ public class PandaController : MonoBehaviour
 
 	void Jump()
 	{
-		rb.velocity += new Vector2(0, 4f);
+		rb.velocity += new Vector2(0, 3f*(0.3f+UnityEngine.Random.value));
 	}
 
 	private void ChangeDirection()
