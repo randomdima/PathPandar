@@ -85,7 +85,7 @@ public class UILogic : MonoBehaviour
         {
             Reload();
         }
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
         {
             isPaused = !isPaused;
             panel.SetActive(isPaused);
