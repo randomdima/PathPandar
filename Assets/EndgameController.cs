@@ -18,6 +18,7 @@ public class EndgameController : MonoBehaviour
 
 	private void OnEnable()
 	{
+		Debug.Log("endgame enable");
 		UILogic.Bus.Subscribe<AllPandasSpawnedEvent>(AllPandasSpawned);
 		//UILogic.Bus.Subscribe<CountSavedPandaEvent>(PandaSaved);
 	}

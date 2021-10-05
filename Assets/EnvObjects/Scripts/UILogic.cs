@@ -68,6 +68,7 @@ public class UILogic : MonoBehaviour
     private void OnEnable()
     {
         Bus = new EventBus();
+        Debug.Log("new bus");
         Bus.Subscribe<CountSavedPandaEvent>(CountSavedPanda);
         Bus.Subscribe<CountFailedPandaEvent>(CountFailedPanda);
         Bus.Subscribe<BombCountEvent>(BombCount);
