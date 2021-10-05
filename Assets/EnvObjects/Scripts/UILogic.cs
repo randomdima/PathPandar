@@ -14,7 +14,7 @@ public class UILogic : MonoBehaviour
 
     private int score = 0;
     private int failed = 0;
-    private bool isPaused = true;
+    private bool isPaused = false;
 
     public static EventBus Bus = new EventBus();
 
