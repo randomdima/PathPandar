@@ -11,10 +11,12 @@ public class UILogic : MonoBehaviour
     public Text bombCount;
     public GameObject levelParent;
     public GameObject panel;
+    public GameObject audio;
 
     private int score = 0;
     private int failed = 0;
     private bool isPaused = false;
+    private bool isAudio = true;
 
     public static EventBus Bus = new EventBus();
 
@@ -54,6 +56,12 @@ public class UILogic : MonoBehaviour
         {
             Time.timeScale = 1.0f;
         }
+    }
+
+    public void AudioOnCLick()
+    {
+        isAudio = !isAudio;
+        audio.SetActive(isAudio);
     }
 
 

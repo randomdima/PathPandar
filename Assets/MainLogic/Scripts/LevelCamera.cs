@@ -15,6 +15,8 @@ public class LevelCamera : MonoBehaviour
     private float screenHeight;
     private Vector3 cameraMove;
 
+    private float time = 0f;
+
     void Start()
     {
         screenWidth = Screen.width;
@@ -27,6 +29,7 @@ public class LevelCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UpdateScreenSize();
         //Move camera
         if ((Input.mousePosition.x > screenWidth - offset) && transform.position.x < minMaxXPosition.y)
         {
@@ -49,5 +52,16 @@ public class LevelCamera : MonoBehaviour
     float MoveSpeed()
     {
         return speed * Time.deltaTime;
+    }
+
+    private void UpdateScreenSize()
+    {
+        time += Time.deltaTime;
+        if(time > 1f)
+        {
+            time = 0f;
+            screenWidth = Screen.width;
+            screenHeight = Screen.height;
+        }
     }
 }
