@@ -105,7 +105,7 @@ public class PandaController : MonoBehaviour
 				if (obscuredTime == 0f)
 					obscuredTime = Time.time;
 
-				if (Time.time - obscuredTime > 2f)
+				if (Time.time - obscuredTime > 1.5f)
 				{
 					obscuredTime = 0;
 					ChangeDirection();
