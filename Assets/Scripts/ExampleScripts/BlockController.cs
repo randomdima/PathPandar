@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using DTerrain;
 
-namespace DTerrain
-{
     public class BlockController : MonoBehaviour
     {
         [field:SerializeField]
@@ -30,14 +29,29 @@ namespace DTerrain
             {
                 if (Input.GetKeyDown(q))
                 {
-                    Destroy(SelectedBlock);
                     var id = q - KeyCode.Alpha1;
-                    if (id < Objects.Length)
-                    {
-                        SelectedBlock = Instantiate(Objects[q - KeyCode.Alpha1], transform);
-                    }
+                    SelectBlock(id);
+                    
                 }
             }
         }
+
+        public void SelectBlock(int id)
+        {
+            Destroy(SelectedBlock);
+            if (id < Objects.Length)
+            {
+                SelectedBlock = Instantiate(Objects[id], transform);
+            }
+        }
+
+        public void SelectBomb()
+        {
+            SelectBlock(1);
+        }
+
+        public void SelectBamboo()
+        {
+            SelectBlock(0);
+        }
     }
-}
