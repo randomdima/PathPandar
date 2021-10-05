@@ -42,6 +42,20 @@ public class UILogic : MonoBehaviour
         SceneManager.LoadScene("Level2");
     }
 
+    public void PauseOnClick()
+    {
+        isPaused = !isPaused;
+        panel.SetActive(isPaused);
+        if (isPaused)
+        {
+            Time.timeScale = 0.0f;
+        }
+        else
+        {
+            Time.timeScale = 1.0f;
+        }
+    }
+
 
     private void OnEnable()
     {
@@ -87,15 +101,7 @@ public class UILogic : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
         {
-            isPaused = !isPaused;
-            panel.SetActive(isPaused);
-            if(isPaused)
-            {
-                Time.timeScale = 0.0f;
-            } else
-            {
-                Time.timeScale = 1.0f;
-            }
+            PauseOnClick();
         }
     }
 
