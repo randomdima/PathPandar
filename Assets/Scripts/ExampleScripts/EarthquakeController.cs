@@ -21,6 +21,10 @@ namespace DTerrain
         
         private ComplexShape[] CrackShapes { get; set; }
 
+        public int StoneCount;
+
+        public int CrackCount;
+
         public void Start()
         {
             CrackShapes = Cracks.Select(q=> new ComplexShape(q)).ToArray();
@@ -32,18 +36,18 @@ namespace DTerrain
         {
             while (true)
             {
-                yield return new WaitForSeconds(10f);
-                GetComponent<LevelShake>().shakeDuration = 0.1f;
+                yield return new WaitForSeconds(20f);
+              //  GetComponent<LevelShake>().shakeDuration = 0.7f;
                 var start = CollisionLayer.transform.position;
-                for (var q = 0; q < (int)(Random.value*5); q++)
+                for (var q = 0; q < (int)(Random.value*StoneCount); q++)
                 {
-                    var x = start.x + Random.value * CollisionLayer.OriginalTexture.width / 100f;
+                    var x = start.x + Random.value * CollisionLayer.OriginalTexture.width/80f;
                     var stoneId = (int)Math.Floor(Random.value * Stones.Length);
-                    var obj = Instantiate(Stones[stoneId], new Vector3(x, 10f, 0), new Quaternion(1,1,Random.value*360,1));
-                    obj.transform.localScale = obj.transform.localScale*(Random.value+0.5f);
+                    var obj = Instantiate(Stones[stoneId], new Vector3(x, 25f, 0), new Quaternion(1,1,Random.value*360,1));
+                    obj.transform.localScale = obj.transform.localScale*(Random.value+0.2f);
                 }
                 
-                for (var q = 0; q < (int)(Random.value*10); q++)
+                for (var q = 0; q < (int)(Random.value*CrackCount); q++)
                 {
                     var position = new Vector2Int(
                         (int)(CollisionLayer.OriginalTexture.width*Random.value),
