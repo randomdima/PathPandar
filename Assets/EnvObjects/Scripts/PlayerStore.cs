@@ -30,7 +30,7 @@ public static class PlayerStore
 
     public static void Init()
     {
-        BlockCount = 10;
-        BombCount = 5;
+        BlockCount = 20;
+        BombCount = 10;
     }
 }
