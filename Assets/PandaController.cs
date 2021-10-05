@@ -111,8 +111,7 @@ public class PandaController : MonoBehaviour
 					ChangeDirection();
 					triedToJump = false;
 				}
-
-				if (Time.time - obscuredTime > 0.3f && !triedToJump)
+				else if (Time.time - obscuredTime > 0.3f && !triedToJump)
 				{
 					Jump();
 					triedToJump = true;
@@ -150,7 +149,7 @@ public class PandaController : MonoBehaviour
 
 	void Jump()
 	{
-		rb.velocity += new Vector2(0, 5f);
+		rb.velocity += new Vector2(0, 4f);
 	}
 
 	private void ChangeDirection()
