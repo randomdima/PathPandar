@@ -46,7 +46,9 @@ public class PandaSpawnPlace : MonoBehaviour
 
         if (currentCount >= pandaCount)
         {
+            Debug.Log("all pandas spawned publishing 1");
             UILogic.Bus.Publish(new AllPandasSpawnedEvent());
+            Debug.Log("all pandas spawned publishing 2");
         }
     }
 

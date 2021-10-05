@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,9 +44,15 @@ public class EndgameController : MonoBehaviour
 			Debug.Log($"panda controller found {pandaController[0].name}");
 		}
 		*/
+		var timeRemainder = Time.time - ((int)(Math.Floor(Time.time)/5))*5;
+		if (timeRemainder < 0.012)
+		{
+			Debug.Log($"no pandas left on level {noPandasLeftOnLevel}");
+		}
 
 		if (noPandasLeftOnLevel && allPandasSpawned && !gameEnded)
 		{
+			Debug.Log("publishing game ended");
 			gameEnded = true;
 			UILogic.Bus.Publish(new GameEndedEvent());
 		}
@@ -53,6 +60,7 @@ public class EndgameController : MonoBehaviour
 
 	private void AllPandasSpawned(AllPandasSpawnedEvent anEvent)
 	{
+		Debug.Log("All pandas spawned registered");
 		allPandasSpawned = true;
 	}
 
