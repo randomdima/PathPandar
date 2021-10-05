@@ -116,7 +116,7 @@ public class PandaController : MonoBehaviour
 
 	void walk(int d)
 	{
-		Vector3 targetVelocity = new Vector2(speed * d, rb.velocity.y);
+		Vector3 targetVelocity = new Vector2(speed * d, rb.velocity.y+0.05f);
 		// And then smoothing it out and applying it to the character
 		rb.velocity = targetVelocity;
 		//rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref curVelocity, 0.05f);
