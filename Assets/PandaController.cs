@@ -58,6 +58,9 @@ public class PandaController : MonoBehaviour
 		mode = (PandaMode) (new Random().Next() % 4);
 	}
 
+	private float obscuredTime = 0f;
+
+	private bool triedToJump = false;
 	// Update is called once per frame
 	void Update()
 	{
@@ -96,7 +99,30 @@ public class PandaController : MonoBehaviour
 					break;
 			}
 
-			SetCorrectWalkDirection(Obstructed(leftColliders), Obstructed(rightColliders));
+			var isObscured = Obstructed(leftColliders);
+			if (isObscured)
+			{
+				if (obscuredTime == 0f)
+					obscuredTime = Time.time;
+
+				if (Time.time - obscuredTime > 2f)
+				{
+					obscuredTime = 0;
+					ChangeDirection();
+					triedToJump = false;
+				}
+
+				if (Time.time - obscuredTime > 0.3f && !triedToJump)
+				{
+					Jump();
+					triedToJump = true;
+				}
+			}
+			else
+			{
+				obscuredTime = 0;
+				triedToJump = false;
+			}
 
 			switch (activity)
 			{
@@ -116,10 +142,24 @@ public class PandaController : MonoBehaviour
 
 	void walk(int d)
 	{
-		Vector3 targetVelocity = new Vector2(speed * d, rb.velocity.y+0.05f);
+		Vector3 targetVelocity = new Vector2(speed * d, rb.velocity.y);
 		// And then smoothing it out and applying it to the character
 		rb.velocity = targetVelocity;
 		//rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref curVelocity, 0.05f);
+	}
+
+	void Jump()
+	{
+		rb.velocity += new Vector2(0, 5f);
+	}
+
+	private void ChangeDirection()
+	{
+		if (activity == Activity.WalkingRight)
+			activity = Activity.WalkingLeft;
+		else
+			activity = Activity.WalkingRight;
+		Flip();
 	}
 
 	private void SetCorrectWalkDirection(bool leftObstructed, bool rightObstructed)
