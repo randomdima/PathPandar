@@ -199,8 +199,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.3018356, y: 0.75849825}
-  m_EdgeRadius: 0.2
+  m_Size: {x: 0.018356, y: 0.75849825}
+  m_EdgeRadius: 0.36
 --- !u!114 &7667735946018622681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,7 +236,7 @@ MonoBehaviour:
   rb: {fileID: -2444270890577501130}
   mode: 0
   activity: 0
-  offsetBottom: 0.3
+  offsetBottom: 0.25
   offsetTop: 0.5
   offsetSide: 0.5
   rayColisionDistance: 0.02
