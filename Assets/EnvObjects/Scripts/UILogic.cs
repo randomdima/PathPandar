@@ -77,6 +77,7 @@ public class UILogic : MonoBehaviour
 
     private void OnDisable()
     {
+        Debug.Log("uiLogic disable");
         Bus.Unsubscribe<CountSavedPandaEvent>(CountSavedPanda);
         Bus.Unsubscribe<CountFailedPandaEvent>(CountFailedPanda);
         Bus.Unsubscribe<BombCountEvent>(BombCount);
@@ -87,6 +88,7 @@ public class UILogic : MonoBehaviour
 
     void OnDestroy()
     {
+        Debug.Log("uiLogic destroy");
         Bus.Unsubscribe<CountSavedPandaEvent>(CountSavedPanda);
         Bus.Unsubscribe<CountFailedPandaEvent>(CountFailedPanda);
         Bus.Unsubscribe<BombCountEvent>(BombCount);

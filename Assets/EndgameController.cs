@@ -24,6 +24,7 @@ public class EndgameController : MonoBehaviour
 
 	private void OnDisable()
 	{
+		Debug.Log("endgame disable");
 		UILogic.Bus.Unsubscribe<AllPandasSpawnedEvent>(AllPandasSpawned);
 		//UILogic.Bus.Unsubscribe<CountSavedPandaEvent>(PandaSaved);
 	}
