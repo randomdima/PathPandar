@@ -152,9 +152,18 @@ public class PandaController : MonoBehaviour
 		return collisionList.Any(c => c.transform!=null && !c.isTrigger);
 	}
 
-	private List<Collider2D> GetSideCollisions(Vector2 direction)
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+       
+    }
+
+    private List<Collider2D> GetSideCollisions(Vector2 direction)
 	{
-		RaycastHit2D raycastHit2d_top =    Physics2D.Raycast(rb.position + direction*offsetSide + Vector2.up*offsetTop,    direction);
+        var list = new List<Collider2D>();
+        GetComponent<BoxCollider2D>().OverlapCollider(new ContactFilter2D(), list);
+
+        //change Raycast to collider
+        /*RaycastHit2D raycastHit2d_top =    Physics2D.Raycast(rb.position + direction*offsetSide + Vector2.up*offsetTop,    direction);
 		RaycastHit2D raycastHit2d_bottom = Physics2D.Raycast(rb.position + direction*offsetSide - Vector2.up*offsetBottom, direction);
 
 		var list = new List<Collider2D>();
@@ -166,7 +175,7 @@ public class PandaController : MonoBehaviour
 		if (raycastHit2d_bottom.transform != null && raycastHit2d_bottom.distance < rayColisionDistance)
 		{
 			list.Add(raycastHit2d_bottom.collider);
-		}
+		}*/
 
 		return list;
 	}
